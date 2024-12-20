@@ -1,5 +1,6 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -15,6 +16,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
+    "typeRoots": ["node_modules/@angular/material"],
     "target": "ES2022",
     "module": "ES2022"
   },
@@ -25,3 +27,4 @@
     "strictTemplates": true
   }
 }
+

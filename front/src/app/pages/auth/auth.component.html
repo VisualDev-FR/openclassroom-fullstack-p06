@@ -1,0 +1,76 @@
+<h1>{{ isLogin ? "Se connecter" : "Inscription" }}</h1>
+
+<span class="back-button" (click)="navigateBack()">&#8592;</span>
+
+<form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>{{ usernameLabel }}</mat-label>
+
+    <input matInput formControlName="username">
+
+    @if(authForm.controls['username'].hasError('required'))
+    {
+    <mat-error>
+      Un nom d'utilisateur est requis.
+    </mat-error>
+    }
+
+  </mat-form-field>
+
+  @if(!isLogin)
+  {
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Adresse e-mail</mat-label>
+
+    <input matInput formControlName="email" type="email">
+
+
+    @if(authForm.controls['email'].hasError('required'))
+    {
+    <mat-error>
+      L'email est requis.
+    </mat-error>
+    }
+
+    @if(authForm.controls['email'].hasError('email'))
+    {
+    <mat-error>
+      Entrez un email valide.
+    </mat-error>
+    }
+
+  </mat-form-field>
+  }
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Mot de passe</mat-label>
+
+    <input matInput formControlName="password" type="password">
+
+    @if(authForm.controls['password'].hasError('required'))
+    {
+    <mat-error>
+      Le mot de passe est requis.
+    </mat-error>
+    }
+
+    @if(authForm.controls['password'].hasError('minlength'))
+    {
+    <mat-error>
+      Le mot de passe doit comporter au moins 6 caractères.
+    </mat-error>
+    }
+
+  </mat-form-field>
+
+  <div class="form-actions">
+    <button mat-stroked-button color="primary" type="submit" [disabled]="authForm.invalid">
+      {{ submitButtonLabel }}
+    </button>
+  </div>
+
+</form>

@@ -1,0 +1,26 @@
+:host {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-arrow {
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 20px;
+
+
+}
+
+.back-arrow:hover {
+  cursor: pointer;
+}
