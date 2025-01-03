@@ -1,16 +1,16 @@
-<h1>{{ isLogin ? "Se connecter" : "Inscription" }}</h1>
 
-<span class="back-button" (click)="navigateBack()">&#8592;</span>
+
+<span class="back-button" (click)="navigateBack()">&#8592;</span> <!--  -->
 
 <form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
-
+  <h1>Se connecter</h1>
   <mat-form-field appearance="outline" class="full-width">
 
-    <mat-label>{{ usernameLabel }}</mat-label>
+    <mat-label>Email</mat-label>
 
-    <input matInput formControlName="username">
+    <input matInput formControlName="email">
 
-    @if(authForm.controls['username'].hasError('required'))
+    @if(authForm.controls['email'].hasError('required'))
     {
     <mat-error>
       Un nom d'utilisateur est requis.
@@ -18,32 +18,6 @@
     }
 
   </mat-form-field>
-
-  @if(!isLogin)
-  {
-  <mat-form-field appearance="outline" class="full-width">
-
-    <mat-label>Adresse e-mail</mat-label>
-
-    <input matInput formControlName="email" type="email">
-
-
-    @if(authForm.controls['email'].hasError('required'))
-    {
-    <mat-error>
-      L'email est requis.
-    </mat-error>
-    }
-
-    @if(authForm.controls['email'].hasError('email'))
-    {
-    <mat-error>
-      Entrez un email valide.
-    </mat-error>
-    }
-
-  </mat-form-field>
-  }
 
   <mat-form-field appearance="outline" class="full-width">
 
@@ -69,7 +43,7 @@
 
   <div class="form-actions">
     <button mat-stroked-button color="primary" type="submit" [disabled]="authForm.invalid">
-      {{ submitButtonLabel }}
+      Se connecter
     </button>
   </div>
 

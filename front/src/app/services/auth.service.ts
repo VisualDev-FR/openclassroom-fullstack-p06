@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TokenDTO } from '../dto/TokenDTO';
 import { UserDTO } from '../dto/UserDTO';
+import { SessionInformation } from '../interfaces/sessionInformation.interface';
+import { RegisterRequest } from '../interfaces/registerRequest.interface';
+import { LoginRequest } from '../interfaces/loginRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +13,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<TokenDTO> {
-    return this.http.post<TokenDTO>("/api/auth/login", {
-      body: {
-        username: username,
-        password: password,
-      }
-    });
+  public register(registerRequest: RegisterRequest): Observable<void> {
+    return this.http.post<void>("/api/auth/register", registerRequest);
   }
 
-  register(username: string, email: string, password: string): Observable<TokenDTO> {
-    return this.http.post<TokenDTO>("/api/auth/register", {
-      body: {
-        username: username,
-        email: email,
-        password: password,
-      }
-    });
+  public login(loginRequest: LoginRequest): Observable<SessionInformation> {
+    return this.http.post<SessionInformation>("/api/auth/login", loginRequest);
   }
 
-  me(): Observable<UserDTO> {
+  public me(): Observable<UserDTO> {
     return this.http.get<UserDTO>("/api/auth/me");
   }
 }

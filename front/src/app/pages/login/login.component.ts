@@ -1,10 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { first } from 'rxjs';
+import { SessionService } from '../../services/session.service';
+import { SessionInformation } from '../../interfaces/sessionInformation.interface';
+import { LoginRequest } from '../../interfaces/loginRequest.interface';
 
 @Component({
   selector: 'app-auth',
@@ -17,29 +22,24 @@ import { ActivatedRoute, Router } from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
   ],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
 export class AuthComponent implements OnInit {
 
-  isLogin: boolean = true;
   authForm!: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private sessionService: SessionService,
   ) { }
 
-  get usernameLabel() { return this.isLogin ? "E-mail ou nom d'utilisateur" : "Nom d'utilisateur" };
-  get submitButtonLabel() { return this.isLogin ? "Se connecter" : "S'inscrire" };
-
   ngOnInit(): void {
-    this.isLogin = this.route.toString().includes("login")
     this.authForm = this.formBuilder.group({
-      email: ["", [Validators.email, this.validatorEmailRequired(this.isLogin)]],
+      email: ["", [Validators.required]],
       password: ["", [Validators.required]],
-      username: ["", [Validators.required]],
     })
   }
 
@@ -54,12 +54,17 @@ export class AuthComponent implements OnInit {
 
   onSubmit(): void {
 
-    if (this.authForm.valid) {
-      alert("valid form!");
-    }
-    else {
-      alert("invalid form!");
-    }
+    this.authService.login(this.authForm.value as LoginRequest)
+      .pipe(first())
+      .subscribe({
+        next: (response: SessionInformation) => {
+          this.sessionService.logIn(response);
+          this.router.navigate(['/articles']);
+        },
+        error: (e: Error) => {
+          console.log(e);
+        },
+      })
   }
 
   navigateBack(): void {
