@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.Exceptions.DuplicateUserException;
 import com.openclassrooms.mddapi.dto.LoginDto;
 import com.openclassrooms.mddapi.dto.RegisterDto;
-import com.openclassrooms.mddapi.dto.TokenDto;
 import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.services.JWTService;
 import com.openclassrooms.mddapi.services.UserService;
 import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.payload.Response.JwtResponse;
 
 import jakarta.validation.Valid;
 
@@ -40,32 +40,39 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
-    private ResponseEntity<TokenDto> getToken(String email) {
-        String jwt = jwtService.generateToken(email);
+    private ResponseEntity<JwtResponse> getToken(User user) {
+
+        String jwt = jwtService.generateToken(user.getEmail());
+
+        JwtResponse response = JwtResponse.builder()
+                .token(jwt)
+                .id(user.getId())
+                .email(user.getEmail())
+                .build();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new TokenDto(jwt));
+                .body(response);
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<TokenDto> register(@Valid @RequestBody RegisterDto registerDatas) {
+    public ResponseEntity<JwtResponse> register(@Valid @RequestBody RegisterDto registerDatas) {
 
         String email = registerDatas.getEmail();
 
         if (userservice.userExistsByEmail(email))
             throw new DuplicateUserException(email);
 
-        userservice.createUser(new User(
+        User user = userservice.createUser(new User(
                 registerDatas.getName(),
                 registerDatas.getEmail(),
                 registerDatas.getPassword()));
 
-        return getToken(email);
+        return getToken(user);
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginDto data) {
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginDto data) {
 
         var credentials = new UsernamePasswordAuthenticationToken(
                 data.getEmail(),
@@ -79,7 +86,9 @@ public class AuthController {
         if (!authentication.isAuthenticated())
             throw new BadCredentialsException("Bad credentials");
 
-        return getToken(data.getEmail());
+        User user = userservice.findByEmail(data.getEmail());
+
+        return getToken(user);
     }
 
     @GetMapping("/auth/me")
@@ -87,14 +96,13 @@ public class AuthController {
 
         User user = userservice.getCurrentUser();
 
+        UserDto dto = UserDto.builder()
+            .email(user.getEmail())
+            .build();
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new UserDto(
-                        user.getId(),
-                        user.getName(),
-                        user.getEmail(),
-                        user.getCreated_at().toString(),
-                        user.getUpdated_at().toString()));
+                .body(dto);
     }
 
     @GetMapping("/user/{id}")

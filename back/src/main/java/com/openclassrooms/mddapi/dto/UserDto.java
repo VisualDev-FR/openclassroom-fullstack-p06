@@ -9,7 +9,7 @@ import lombok.Data;
 @Builder
 public class UserDto {
 
-    Integer id;
+    Long id;
     String name;
     String email;
     String created_at;
