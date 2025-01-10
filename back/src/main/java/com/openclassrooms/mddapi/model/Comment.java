@@ -22,7 +22,7 @@ public class Comment {
     public static final int DESC_MAX_SIZE = 1024;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
     @ManyToOne

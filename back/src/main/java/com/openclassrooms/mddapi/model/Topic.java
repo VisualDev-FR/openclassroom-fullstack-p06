@@ -1,5 +1,9 @@
 package com.openclassrooms.mddapi.model;
 
+import java.sql.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +22,7 @@ public class Topic {
     public static final int DESC_MAX_SIZE = 1024;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
     @Column(nullable = false, length = TITLE_MAX_SIZE)
@@ -26,4 +30,8 @@ public class Topic {
 
     @Column(nullable = false, length = DESC_MAX_SIZE)
     public String description;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private Date created_at;
 }
