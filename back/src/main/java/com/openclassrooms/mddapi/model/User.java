@@ -29,7 +29,7 @@ public class User implements UserDetails {
     public static final int PASSWORD_MAX_SIZE = 255;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = NAME_MAX_SIZE)
