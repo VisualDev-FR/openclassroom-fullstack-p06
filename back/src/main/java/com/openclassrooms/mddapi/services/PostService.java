@@ -21,7 +21,11 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public List<Post> findByTopicId(Long id) {
+    public List<Post> findByTopicID(Long id) {
         return postRepository.findByTopicId(id);
+    }
+
+    public Post create(Post post) {
+        return postRepository.save(post);
     }
 }

@@ -22,7 +22,7 @@ public class TopicService {
         return topicRepository.findAll();
     }
 
-    public Topic findByID(Integer id) {
+    public Topic findByID(Long id) {
         return topicRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find topic with id: " + id));
