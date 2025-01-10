@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import com.openclassrooms.mddapi.Exceptions.DuplicateSubscriptionException;
 import com.openclassrooms.mddapi.Exceptions.DuplicateUserException;
 import com.openclassrooms.mddapi.Exceptions.ResourceNotFoundException;
 import com.openclassrooms.mddapi.dto.ExceptionDto;
@@ -83,6 +84,13 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDto> handleHttpMessageNotReadableException(Exception e, WebRequest request) {
+        return new ResponseEntity<ExceptionDto>(
+                new ExceptionDto(e),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateSubscriptionException.class)
+    public ResponseEntity<ExceptionDto> handleDuplicateSubscriptionException(Exception e, WebRequest request) {
         return new ResponseEntity<ExceptionDto>(
                 new ExceptionDto(e),
                 HttpStatus.BAD_REQUEST);
