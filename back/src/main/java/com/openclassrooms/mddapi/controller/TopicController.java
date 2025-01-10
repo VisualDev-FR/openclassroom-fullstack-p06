@@ -10,20 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.dto.TopicDto;
 import com.openclassrooms.mddapi.mapper.TopicMapper;
 import com.openclassrooms.mddapi.model.Topic;
-import com.openclassrooms.mddapi.repository.TopicRepository;
 import com.openclassrooms.mddapi.services.TopicService;
 
 @RestController
 public class TopicController {
 
     @Autowired
-    public TopicRepository topicRepository;
+    private TopicService topicService;
 
     @Autowired
-    public TopicService topicService;
-
-    @Autowired
-    public TopicMapper topicMapper;
+    private TopicMapper topicMapper;
 
     @GetMapping("/api/topic")
     public ResponseEntity<List<TopicDto>> findAll() {
