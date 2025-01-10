@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.model.Topic;
+import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.payload.Request.PostCreationRequest;
 import com.openclassrooms.mddapi.repository.PostRepository;
 
 import lombok.Data;
@@ -15,7 +18,13 @@ import lombok.Data;
 public class PostService {
 
     @Autowired
-    public PostRepository postRepository;
+    private PostRepository postRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TopicService topicService;
 
     public List<Post> findAll() {
         return postRepository.findAll();
@@ -25,7 +34,18 @@ public class PostService {
         return postRepository.findByTopicId(id);
     }
 
-    public Post create(Post post) {
+    public Post create(PostCreationRequest postCreationRequest) {
+
+        User currentUser = this.userService.getCurrentUser();
+        Topic topic = this.topicService.findByID(postCreationRequest.getTopic_id());
+
+        Post post = new Post();
+
+        post.setTitle(postCreationRequest.getTitle());
+        post.setDescription(postCreationRequest.getDescription());
+        post.setAuthor(currentUser);
+        post.setTopic(topic);
+
         return postRepository.save(post);
     }
 }

@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.dto.PostDto;
 import com.openclassrooms.mddapi.mapper.PostMapper;
 import com.openclassrooms.mddapi.model.Post;
-import com.openclassrooms.mddapi.model.Topic;
-import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.payload.Request.PostCreationRequest;
 import com.openclassrooms.mddapi.services.PostService;
-import com.openclassrooms.mddapi.services.TopicService;
-import com.openclassrooms.mddapi.services.UserService;
 
 import jakarta.validation.Valid;
 
@@ -31,12 +27,6 @@ public class PostController {
 
     @Autowired
     private PostMapper postMapper;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private TopicService topicService;
 
     @GetMapping("/api/post")
     public ResponseEntity<List<PostDto>> findAll() {
@@ -59,17 +49,7 @@ public class PostController {
     @PostMapping("/api/post")
     public ResponseEntity<PostDto> create(@Valid @RequestBody PostCreationRequest body) {
 
-        User currentUser = this.userService.getCurrentUser();
-        Topic topic = this.topicService.findByID(body.getTopic_id());
-
-        Post post = new Post();
-
-        post.setTitle(body.getTitle());
-        post.setDescription(body.getDescription());
-        post.setAuthor(currentUser);
-        post.setTopic(topic);
-
-        post = postService.create(post);
+        Post post = postService.create(body);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
