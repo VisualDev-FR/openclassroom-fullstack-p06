@@ -10,6 +10,8 @@ import { MddButtonComponent } from '../../components/mdd-button/mdd-button.compo
 import { Observable } from 'rxjs';
 import { Topic } from '../../interfaces/topic.interface';
 import { TopicService } from '../../services/topic.service';
+import { SessionService } from '../../services/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -31,27 +33,36 @@ import { TopicService } from '../../services/topic.service';
 export class UserProfileComponent implements OnInit {
 
   topics$!: Observable<Topic[]>;
-
   userForm!: FormGroup;
   errorMessage: string = "";
-
-  readonly username = new FormControl("", [])
-  readonly email = new FormControl("", [Validators.email])
+  usernameControl!: FormControl;
+  emailControl!: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
     private topicService: TopicService,
+    private sessionService: SessionService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.usernameControl = new FormControl(this.sessionService.sessionInformation?.username)
+    this.emailControl = new FormControl(
+      "", // this.sessionService.sessionInformation.email
+      [Validators.email]
+    )
+
     this.topics$ = this.topicService.getSubscribedTopics();
     this.userForm = this.formBuilder.group({
-      username: this.username,
-      email: this.email,
+      username: this.usernameControl,
+      email: this.emailControl,
     })
   }
 
-  logout(): void { }
+  logout(): void {
+    this.sessionService.logOut();
+    this.router.navigateByUrl("/login");
+  }
 
   onSave(): void { }
 

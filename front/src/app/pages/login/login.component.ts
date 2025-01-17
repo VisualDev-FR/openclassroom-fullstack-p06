@@ -56,15 +56,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  validatorEmailRequired(isLogin: boolean) {
-    return (emailControl: AbstractControl): ValidationErrors | null => {
-      if (!isLogin && emailControl.value === "") {
-        return { "required": "Email is required" };
-      }
-      return null;
-    };
-  }
-
   onSubmit(): void {
 
     this.authService.login(this.authForm.value as LoginRequest)

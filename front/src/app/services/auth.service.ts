@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserDTO } from '../dto/UserDTO';
@@ -11,17 +11,22 @@ import { LoginRequest } from '../interfaces/loginRequest.interface';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  private httpClient!: HttpClient;
+
+  constructor(handler: HttpBackend) {
+    // prevent requests to be intercepted by jwtInterceptor
+    this.httpClient = new HttpClient(handler);
+  }
 
   public register(registerRequest: RegisterRequest): Observable<SessionInformation> {
-    return this.http.post<SessionInformation>("/api/auth/register", registerRequest);
+    return this.httpClient.post<SessionInformation>("/api/auth/register", registerRequest);
   }
 
   public login(loginRequest: LoginRequest): Observable<SessionInformation> {
-    return this.http.post<SessionInformation>("/api/auth/login", loginRequest);
+    return this.httpClient.post<SessionInformation>("/api/auth/login", loginRequest);
   }
 
   public me(): Observable<UserDTO> {
-    return this.http.get<UserDTO>("/api/auth/me");
+    return this.httpClient.get<UserDTO>("/api/auth/me");
   }
 }
