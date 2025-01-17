@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
-  selector: 'app-articles',
+  selector: 'app-themes',
   imports: [
     NavbarComponent,
   ],
-  templateUrl: './articles.component.html',
-  styleUrl: './articles.component.scss'
+  templateUrl: './themes.component.html',
+  styleUrl: './themes.component.scss'
 })
-export class ArticlesComponent {
+export class ThemesComponent {
 
 }

@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-auth',
@@ -28,6 +29,7 @@ import { MddButtonComponent } from '../../components/mdd-button/mdd-button.compo
     CommonModule,
     BackArrowComponent,
     MddButtonComponent,
+    NavbarComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

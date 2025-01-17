@@ -14,6 +14,7 @@ import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-register',
@@ -27,6 +28,7 @@ import { MddButtonComponent } from '../../components/mdd-button/mdd-button.compo
     CommonModule,
     BackArrowComponent,
     MddButtonComponent,
+    NavbarComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'

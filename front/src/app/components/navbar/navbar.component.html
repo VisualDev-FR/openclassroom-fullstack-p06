@@ -1,1 +1,12 @@
-<p>navbar works!</p>
+<img src="/assets/logo_p6.png" class="icon" />
+
+
+@if(isLogged()){
+
+<span class="separator"></span>
+
+<a [ngClass]="{'selected': currentPage === 'articles'}" href="/articles">Articles</a>
+<a [ngClass]="{'selected': currentPage === 'themes'}" href="/themes">Thèmes</a>
+
+<i class="fa fa-user-o user"></i>
+}
