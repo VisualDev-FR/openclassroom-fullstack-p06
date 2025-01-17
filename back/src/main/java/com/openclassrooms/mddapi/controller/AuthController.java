@@ -55,7 +55,7 @@ public class AuthController {
                 .body(response);
     }
 
-    @PostMapping("/auth/register")
+    @PostMapping("/api/auth/register")
     public ResponseEntity<JwtResponse> register(@Valid @RequestBody RegisterDto registerDatas) {
 
         String email = registerDatas.getEmail();
@@ -71,7 +71,7 @@ public class AuthController {
         return getToken(user);
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping("/api/auth/login")
     public ResponseEntity<JwtResponse> login(@RequestBody LoginDto data) {
 
         var credentials = new UsernamePasswordAuthenticationToken(
@@ -91,7 +91,7 @@ public class AuthController {
         return getToken(user);
     }
 
-    @GetMapping("/auth/me")
+    @GetMapping("/api/auth/me")
     public ResponseEntity<UserDto> me() {
 
         User user = userservice.getCurrentUser();
@@ -105,7 +105,7 @@ public class AuthController {
                 .body(dto);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/api/user/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Integer id) {
 
         User currentUser = userservice.findByID(id);
