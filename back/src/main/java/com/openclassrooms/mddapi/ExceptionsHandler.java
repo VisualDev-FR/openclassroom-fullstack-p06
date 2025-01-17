@@ -65,7 +65,7 @@ public class ExceptionsHandler {
     public ResponseEntity<ExceptionDto> handleDuplicateUserException(Exception e, WebRequest request) {
         return new ResponseEntity<ExceptionDto>(
                 new ExceptionDto(e),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(BadCredentialsException.class)

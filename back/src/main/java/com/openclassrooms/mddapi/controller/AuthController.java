@@ -64,7 +64,7 @@ public class AuthController {
             throw new DuplicateUserException(email);
 
         User user = userservice.createUser(new User(
-                registerDatas.getName(),
+                registerDatas.getUsername(),
                 registerDatas.getEmail(),
                 registerDatas.getPassword()));
 

@@ -13,6 +13,6 @@ public class RegisterDto extends LoginDto {
     @NotNull(message = "A name must be provided")
     @NotEmpty(message = "Name must not be empty")
     @Size(max = User.NAME_MAX_SIZE)
-    private String name;
+    private String username;
 
 }
