@@ -13,8 +13,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public register(registerRequest: RegisterRequest): Observable<void> {
-    return this.http.post<void>("/api/auth/register", registerRequest);
+  public register(registerRequest: RegisterRequest): Observable<SessionInformation> {
+    return this.http.post<SessionInformation>("/api/auth/register", registerRequest);
   }
 
   public login(loginRequest: LoginRequest): Observable<SessionInformation> {

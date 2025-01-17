@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +10,10 @@ import { first } from 'rxjs';
 import { SessionService } from '../../services/session.service';
 import { SessionInformation } from '../../interfaces/sessionInformation.interface';
 import { LoginRequest } from '../../interfaces/loginRequest.interface';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
+import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
 
 @Component({
   selector: 'app-auth',
@@ -21,13 +25,20 @@ import { LoginRequest } from '../../interfaces/loginRequest.interface';
     MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
+    BackArrowComponent,
+    MddButtonComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class AuthComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   authForm!: FormGroup;
+  errorMessage: string = "";
+
+  readonly email = new FormControl("", [Validators.required, Validators.email])
+  readonly password = new FormControl("", [Validators.required])
 
   constructor(
     private router: Router,
@@ -38,8 +49,8 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.authForm = this.formBuilder.group({
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required]],
+      email: this.email,
+      password: this.password,
     })
   }
 
@@ -61,13 +72,19 @@ export class AuthComponent implements OnInit {
           this.sessionService.logIn(response);
           this.router.navigate(['/articles']);
         },
-        error: (e: Error) => {
-          console.log(e);
+        error: (error: HttpErrorResponse) => {
+
+          if (error.status === 401) {
+            this.errorMessage = "Nom d'utilisateur ou mot de passe incorrect."
+          }
+          else {
+            console.log("error status: ", error.status);
+            this.errorMessage = "An error occured"
+          }
         },
       })
   }
 
   navigateBack(): void {
-    this.router.navigate(["/"]);
   }
 }

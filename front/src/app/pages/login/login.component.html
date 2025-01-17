@@ -1,50 +1,42 @@
-
-
-<span class="back-button" (click)="navigateBack()">&#8592;</span> <!--  -->
+<app-back-arrow />
 
 <form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+
   <h1>Se connecter</h1>
-  <mat-form-field appearance="outline" class="full-width">
+
+  <mat-form-field appearance="outline" class="form-field">
 
     <mat-label>Email</mat-label>
 
     <input matInput formControlName="email">
 
-    @if(authForm.controls['email'].hasError('required'))
-    {
-    <mat-error>
-      Un nom d'utilisateur est requis.
+    <mat-error *ngIf="authForm.controls['email'].hasError('required')">
+      email requis.
     </mat-error>
-    }
+
+    <mat-error *ngIf="authForm.controls['email'].hasError('email')">
+      email invalide.
+    </mat-error>
 
   </mat-form-field>
 
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="outline" class="form-field">
 
     <mat-label>Mot de passe</mat-label>
 
     <input matInput formControlName="password" type="password">
 
-    @if(authForm.controls['password'].hasError('required'))
-    {
-    <mat-error>
+    <mat-error *ngIf="authForm.controls['password'].hasError('required')">
       Le mot de passe est requis.
     </mat-error>
-    }
-
-    @if(authForm.controls['password'].hasError('minlength'))
-    {
-    <mat-error>
-      Le mot de passe doit comporter au moins 6 caractères.
-    </mat-error>
-    }
 
   </mat-form-field>
 
-  <div class="form-actions">
-    <button mat-stroked-button color="primary" type="submit" [disabled]="authForm.invalid">
-      Se connecter
-    </button>
-  </div>
+  <mdd-button caption="Se connecter" type="submit" [disabled]="authForm.invalid" (click)="onSubmit()">
+  </mdd-button>
+
+  <mat-error *ngIf="errorMessage" class="error-message">
+    {{errorMessage}}
+  </mat-error>
 
 </form>

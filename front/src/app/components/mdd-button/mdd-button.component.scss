@@ -1,0 +1,19 @@
+button {
+  background: rgb(120, 96, 194);
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled:hover {
+    background: rgba(120, 96, 194, 0.7);
+    cursor: not-allowed;
+  }
+}

@@ -1,1 +1,54 @@
-<p>register works!</p>
+<app-back-arrow />
+
+<form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+
+  <h1>Inscription</h1>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Nom d'utilisateur</mat-label>
+
+    <input matInput formControlName="username">
+
+    <mat-error *ngIf="authForm.controls['email'].hasError('required')">
+      email requis.
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Email</mat-label>
+
+    <input matInput formControlName="email">
+
+    <mat-error *ngIf="authForm.controls['email'].hasError('required')">
+      email requis.
+    </mat-error>
+
+    <mat-error *ngIf="authForm.controls['email'].hasError('email')">
+      email invalide.
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Mot de passe</mat-label>
+
+    <input matInput formControlName="password" type="password">
+
+    <mat-error *ngIf="authForm.controls['password'].hasError('required')">
+      Le mot de passe est requis.
+    </mat-error>
+
+  </mat-form-field>
+
+  <mdd-button caption="S'inscrire" type="submit" [disabled]="authForm.invalid" (click)="onSubmit()">
+  </mdd-button>
+
+  <mat-error *ngIf="errorMessage" class="error-message">
+    {{errorMessage}}
+  </mat-error>
+
+</form>

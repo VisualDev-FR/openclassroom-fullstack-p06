@@ -4,15 +4,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  gap: 20px;
 }
 
-.back-button {
-  font-size: 50px;
-  position: absolute;
-  margin-top: 20px;
-  margin-left: 20px;
+.form-field{
+  width: 300px;
 }
 
-.back-button:hover {
-  cursor: pointer;
+button[type="submit"] {
+  margin-bottom: 20px;
+  width: 100px;
+}
+
+.error-message {
+  transition: 0.5s ease;
 }
