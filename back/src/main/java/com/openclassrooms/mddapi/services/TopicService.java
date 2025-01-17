@@ -27,4 +27,5 @@ public class TopicService {
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find topic with id: " + id));
     }
+
 }

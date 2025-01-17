@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,4 +60,12 @@ public class SubscriptionService {
     public Boolean exists(Long topic_id, Long user_id) {
         return false;
     }
+
+    public List<Topic> findSubscribedTopics() {
+        return this.findByUserID()
+                .stream()
+                .map(Subscription::getTopic)
+                .collect(Collectors.toList());
+    }
+
 }
