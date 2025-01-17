@@ -1,0 +1,18 @@
+.auth-form {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-button {
+  font-size: 50px;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.back-button:hover {
+  cursor: pointer;
+}
