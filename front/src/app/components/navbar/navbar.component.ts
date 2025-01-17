@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { CommonModule, NgStyle } from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,10 @@ import { environment } from '../../../environments/environment';
 })
 export class NavbarComponent {
 
-  constructor(private sessionService: SessionService) { }
+  constructor(
+    private sessionService: SessionService,
+    protected router: Router,
+  ) { }
 
   @Input() currentPage: string = "";
 

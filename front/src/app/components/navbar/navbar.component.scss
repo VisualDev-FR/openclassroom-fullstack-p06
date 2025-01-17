@@ -11,8 +11,8 @@ a {
   text-decoration: none;
   color: black;
 
-  &.selected{
-    color: rgb(120, 96, 194);
+  &.selected {
+    color: var(--mdd-color);
   }
 }
 
@@ -39,6 +39,15 @@ a {
   transition: transform 0.25s ease;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+  }
+
+  &.selected {
+    background-color: rgba(var(--mdd-color-rgb), 0.4);
+    border: 2px solid var(--mdd-color);
+  }
+
+  &.selected:hover {
+    transform: none;
   }
 }

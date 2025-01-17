@@ -1,0 +1,39 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout-button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: red;
+  border: 1px solid transparent;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+
+  &:hover {
+    border: 1px solid red;
+    background: rgba(darkRed, $alpha: 0.1);
+  }
+}
+
+.subscriptions {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .separator {
+    border-top: 1px solid black;
+    width: 80%;
+  }
+}

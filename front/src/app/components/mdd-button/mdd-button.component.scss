@@ -1,5 +1,5 @@
 button {
-  background: rgb(120, 96, 194);
+  background: var(--mdd-color);
   border: none;
   height: 40px;
   border-radius: 10px;
@@ -13,7 +13,7 @@ button {
   }
 
   &:disabled:hover {
-    background: rgba(120, 96, 194, 0.7);
+    background: rgba(var(--mdd-color-rgb), 0.7);
     cursor: not-allowed;
   }
 }

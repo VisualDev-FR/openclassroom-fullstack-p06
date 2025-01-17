@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --mdd-color-rgb: 120, 96, 194;
+  --mdd-color: rgb(var(--mdd-color-rgb));
+}
+
 html,
 body {
   height: 100%;
