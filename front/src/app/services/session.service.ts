@@ -9,7 +9,6 @@ export class SessionService {
 
   public isLogged = false;
   public sessionInformation: SessionInformation | undefined;
-
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
   public $isLogged(): Observable<boolean> {
@@ -20,6 +19,15 @@ export class SessionService {
     this.sessionInformation = user;
     this.isLogged = true;
     this.next();
+  }
+
+  public getToken(): string | undefined {
+
+    if (this.sessionInformation) {
+      return this.sessionInformation.token;
+    }
+
+    return undefined;
   }
 
   public logOut(): void {

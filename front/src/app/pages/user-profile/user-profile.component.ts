@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
+import { Observable } from 'rxjs';
+import { Topic } from '../../interfaces/topic.interface';
+import { TopicService } from '../../services/topic.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,15 +30,21 @@ import { MddButtonComponent } from '../../components/mdd-button/mdd-button.compo
 })
 export class UserProfileComponent implements OnInit {
 
+  topics$!: Observable<Topic[]>;
+
   userForm!: FormGroup;
   errorMessage: string = "";
 
   readonly username = new FormControl("", [])
   readonly email = new FormControl("", [Validators.email])
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private topicService: TopicService,
+  ) { }
 
   ngOnInit(): void {
+    this.topics$ = this.topicService.getSubscribedTopics();
     this.userForm = this.formBuilder.group({
       username: this.username,
       email: this.email,
@@ -45,4 +54,6 @@ export class UserProfileComponent implements OnInit {
   logout(): void { }
 
   onSave(): void { }
+
+  unsubscribe(topic: Topic): void { }
 }

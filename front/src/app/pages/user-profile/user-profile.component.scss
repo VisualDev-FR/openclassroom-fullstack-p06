@@ -36,4 +36,25 @@
     border-top: 1px solid black;
     width: 80%;
   }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 200px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba($color: #000000, $alpha: 0.05);
+
+    .button {
+      align-self: center;
+    }
+  }
 }

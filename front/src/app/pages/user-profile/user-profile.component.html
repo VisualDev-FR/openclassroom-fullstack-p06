@@ -41,4 +41,12 @@
 
   <h1>Abonnements</h1>
 
+  <div class="cards">
+    <div *ngFor="let topic of topics$ | async as topics" class="card">
+      <h2>{{ topic.title }}</h2>
+      <p>{{ topic.description }}</p>
+      <mdd-button caption="Se désabonner" class="button" (click)="unsubscribe(topic)" />
+    </div>
+  </div>
+
 </div>
