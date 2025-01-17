@@ -1,8 +1,7 @@
 <app-navbar currentPage="articles" />
 
-
 <div class="actions-bar">
-  <mdd-button caption="Créer un article" class="create-button" />
+  <mdd-button caption="Créer un article" class="create-button" (click)="createPost()" />
   <span class="sort-by">Trier par</span>
 </div>
 
@@ -11,7 +10,7 @@
   <div class="post" *ngFor="let post of posts$ | async">
     <h1>{{ post.title }}</h1>
     <p>{{ post.created_at }}</p>
-    <p>{{ getUser(post.id) }}</p>
+    <p>{{ getAuthor(post.id) }}</p>
     <p>{{ post.description }}</p>
   </div>
 

@@ -52,7 +52,7 @@ export class UserProfileComponent implements OnInit {
       [Validators.email]
     )
 
-    this.topics$ = this.topicService.getSubscribedTopics();
+    this.topics$ = this.topicService.getAllTopics();
     this.userForm = this.formBuilder.group({
       username: this.usernameControl,
       email: this.emailControl,

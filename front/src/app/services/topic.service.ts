@@ -10,7 +10,11 @@ export class TopicService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getSubscribedTopics(): Observable<Topic[]> {
+  public getAllTopics(): Observable<Topic[]> {
     return this.httpClient.get<Topic[]>("/api/topic")
+  }
+
+  public getSubscribedTopics(): Observable<Topic[]> {
+    return this.httpClient.get<Topic[]>("/api/topic/subscribed")
   }
 }

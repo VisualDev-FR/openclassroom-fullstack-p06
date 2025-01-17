@@ -2,36 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { Post } from '../../interfaces/post.interface';
-import { PostService } from '../../services/post.service';
+import { Topic } from '../../interfaces/topic.interface';
+import { TopicService } from '../../services/topic.service';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
 
 @Component({
-  selector: 'app-articles',
+  selector: 'app-themes',
   imports: [
     NavbarComponent,
     CommonModule,
     AsyncPipe,
     MddButtonComponent,
   ],
-  templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss'
+  templateUrl: './topics.component.html',
+  styleUrl: './topics.component.scss'
 })
-export class PostsComponent implements OnInit {
+export class TopicsComponent implements OnInit {
 
-  posts$!: Observable<Post[]>;
+  topics$!: Observable<Topic[]>;
 
   constructor(
-    private postService: PostService,
+    private topicService: TopicService,
   ) { }
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getAllPosts();
+    this.topics$ = this.topicService.getAllTopics();
   }
 
-  getAuthor(user_id: number): string {
-    return "";
-  }
-
-  createPost(): void { }
+  subscribe(topic: Topic) { }
 }
