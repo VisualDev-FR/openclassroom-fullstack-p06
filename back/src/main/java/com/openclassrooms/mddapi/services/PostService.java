@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.openclassrooms.mddapi.Exceptions.ResourceNotFoundException;
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
@@ -28,6 +29,12 @@ public class PostService {
 
     public List<Post> findAll() {
         return postRepository.findAll();
+    }
+
+    public Post findByID(Long post_id) {
+        return postRepository
+                .findById(post_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find post with id: " + post_id));
     }
 
     public List<Post> findByTopicID(Long id) {

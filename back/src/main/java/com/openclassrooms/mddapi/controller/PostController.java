@@ -36,6 +36,14 @@ public class PostController {
         return ResponseEntity.ok().body(this.postMapper.toDto(posts));
     }
 
+    @GetMapping("/api/post/{id}")
+    public ResponseEntity<PostDto> findPostByID(@PathVariable("id") Long post_id) {
+
+        Post post = this.postService.findByID(post_id);
+
+        return ResponseEntity.ok().body(this.postMapper.toDto(post));
+    }
+
     @GetMapping("/api/post/topic/{id}")
     public ResponseEntity<List<PostDto>> findByTopicID(@PathVariable("id") Long topic_id) {
 
