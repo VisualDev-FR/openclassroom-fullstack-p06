@@ -9,16 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostCreationRequest {
+public class CommentCreationRequest {
 
     @NotNull
-    private Long topic_id;
-
-    @NotNull
-    @NotEmpty
-    private String title;
+    public Long post_id;
 
     @NotNull
     @NotEmpty
-    private String description;
+    public String content;
 }

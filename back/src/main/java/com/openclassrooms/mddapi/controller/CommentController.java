@@ -3,15 +3,21 @@ package com.openclassrooms.mddapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.CommentDto;
 import com.openclassrooms.mddapi.mapper.CommentMapper;
 import com.openclassrooms.mddapi.model.Comment;
+import com.openclassrooms.mddapi.payload.Request.CommentCreationRequest;
 import com.openclassrooms.mddapi.services.CommentService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class CommentController {
@@ -36,6 +42,16 @@ public class CommentController {
         List<Comment> comments = this.commentService.findByPostID(post_id);
 
         return ResponseEntity.ok().body(this.commentMapper.toDto(comments));
+    }
+
+    @PostMapping("/api/comment")
+    public ResponseEntity<CommentDto> createComment(@Valid @RequestBody CommentCreationRequest body) {
+
+        Comment comment = this.commentService.createComment(body);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(this.commentMapper.toDto(comment));
     }
 
 }
