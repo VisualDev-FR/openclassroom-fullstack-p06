@@ -17,4 +17,8 @@ export class TopicService {
   public getSubscribedTopics(): Observable<Topic[]> {
     return this.httpClient.get<Topic[]>("/api/topic/subscribed")
   }
+
+  public getTopicByID(topic_id: number): Observable<Topic> {
+    return this.httpClient.get<Topic>(`/api/topic/${topic_id}`)
+  }
 }

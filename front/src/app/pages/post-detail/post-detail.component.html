@@ -6,8 +6,8 @@
 
   <div class="datas">
     <p>{{ post.created_at }}</p>
-    <p>{{ post.user_id }}</p>
-    <p>{{ post.topic_id }}</p>
+    <p *ngIf="postAuthor">{{ postAuthor.username }}</p>
+    <p *ngIf="postTopic">{{ postTopic.title }}</p>
   </div>
 
   <p>{{ post.description }}</p>

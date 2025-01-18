@@ -12,6 +12,8 @@ import { CommentService } from '../../services/comment.service';
 import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Topic } from '../../interfaces/topic.interface';
+import { TopicService } from '../../services/topic.service';
 
 @Component({
   selector: 'app-post',
@@ -27,9 +29,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PostDetailComponent implements OnInit {
 
   maxCommentLength: number = 256;
-  post!: Post;
   comments$!: Observable<Comment[]>;
   comment: string = "";
+  post!: Post;
+  postAuthor!: User;
+  postTopic!: Topic;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +42,7 @@ export class PostDetailComponent implements OnInit {
     private userService: UserService,
     private commentService: CommentService,
     private snackBar: MatSnackBar,
+    private topicService: TopicService,
   ) { }
 
   ngOnInit(): void {
@@ -52,14 +57,18 @@ export class PostDetailComponent implements OnInit {
             return;
           }
 
-          this.post = post;
           this.comments$ = this.commentService.getCommentsByPostID(post.id);
+          this.post = post;
+
+          this.userService.getUserByID(post.user_id)
+            .pipe(first())
+            .subscribe(user => this.postAuthor = user);
+
+          this.topicService.getTopicByID(post.topic_id)
+            .pipe(first())
+            .subscribe(topic => this.postTopic = topic);
         });
     });
-  }
-
-  getUser(user_id: number): Observable<User> {
-    return this.userService.getUserByID(user_id);
   }
 
   sendComment() {
