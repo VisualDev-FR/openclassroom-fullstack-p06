@@ -1,0 +1,91 @@
+:host {
+  position: absolute;
+  overflow-y: auto;
+  padding-bottom: 200px;
+}
+
+.post-content {
+  width: 80%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  border-bottom: 1px solid black;
+
+  .datas{
+    display: flex;
+    gap: 20px;
+    font-size: large;
+  }
+}
+
+.comment-section {
+  width: 80%;
+  margin: 0 auto;
+
+  .comment-card {
+
+    display: flex;
+    gap: 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+
+    .comment {
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba($color: #000000, $alpha: 0.05);
+    }
+  }
+}
+
+.comment-form {
+
+  position: fixed;
+  height: 150px;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  bottom: 0;
+
+  .send-button {
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+    transition: transform 0.5s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .comment-input {
+
+    position: relative;
+    margin-bottom: 40px;
+
+    textarea {
+      width: 400px;
+      height: 100%;
+      outline: none;
+      resize: none;
+      border-radius: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: large;
+      transition: 0.25s ease;
+
+      &:hover,
+      &:focus {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
+    }
+
+    .counter {
+      position: absolute;
+      bottom: -30px;
+      right: 0;
+      font-size: small;
+    }
+  }
+
+}

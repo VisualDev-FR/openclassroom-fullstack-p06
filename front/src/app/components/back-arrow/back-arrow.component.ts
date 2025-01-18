@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 })
 export class BackArrowComponent {
 
+  @Input() url: string = "/";
+
   constructor(private router: Router) { }
 
   navigateBack(): void {
-    this.router.navigate(["/"]);
+    this.router.navigate([this.url]);
   }
 }

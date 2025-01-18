@@ -13,4 +13,8 @@ export class PostService {
   public getAllPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>("/api/post")
   }
+
+  public findPostByID(post_id: number): Observable<Post | undefined> {
+    return this.httpClient.get<Post | undefined>(`/api/post/${post_id}`)
+  }
 }

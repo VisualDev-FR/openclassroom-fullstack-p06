@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Post } from '../../interfaces/post.interface';
 import { PostService } from '../../services/post.service';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
@@ -19,10 +20,12 @@ import { MddButtonComponent } from '../../components/mdd-button/mdd-button.compo
 })
 export class PostsComponent implements OnInit {
 
+
   posts$!: Observable<Post[]>;
 
   constructor(
     private postService: PostService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,5 +36,11 @@ export class PostsComponent implements OnInit {
     return "";
   }
 
-  createPost(): void { }
+  createPost(): void {
+    this.router.navigateByUrl("/post/create");
+  }
+
+  openPost(post: Post) {
+    this.router.navigateByUrl(`/post/${post.id}`)
+  }
 }
