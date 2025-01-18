@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.CommentDto;
@@ -25,6 +26,14 @@ public class CommentController {
     public ResponseEntity<List<CommentDto>> findAll() {
 
         List<Comment> comments = this.commentService.findAll();
+
+        return ResponseEntity.ok().body(this.commentMapper.toDto(comments));
+    }
+
+    @GetMapping("/api/comment/post/{id}")
+    public ResponseEntity<List<CommentDto>> findByPostID(@PathVariable("id") Long post_id) {
+
+        List<Comment> comments = this.commentService.findByPostID(post_id);
 
         return ResponseEntity.ok().body(this.commentMapper.toDto(comments));
     }

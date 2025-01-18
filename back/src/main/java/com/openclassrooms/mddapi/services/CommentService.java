@@ -20,4 +20,9 @@ public class CommentService {
     public List<Comment> findAll() {
         return commentRepository.findAll();
     }
+
+    public List<Comment> findByPostID(Long post_id) {
+        return commentRepository.findByPostId(post_id);
+    }
+
 }
