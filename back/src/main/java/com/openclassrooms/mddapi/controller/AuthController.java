@@ -114,8 +114,8 @@ public class AuthController {
                 .id(currentUser.getId())
                 .name(currentUser.getName())
                 .email(currentUser.getEmail())
-                .created_at(currentUser.getCreated_at().toString())
-                .updated_at(currentUser.getUpdated_at().toString())
+                .created_at(currentUser.getCreated_at())
+                .updated_at(currentUser.getUpdated_at())
                 .build();
 
         return ResponseEntity

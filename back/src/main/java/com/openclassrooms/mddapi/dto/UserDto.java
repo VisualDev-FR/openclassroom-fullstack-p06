@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +14,6 @@ public class UserDto {
     Long id;
     String name;
     String email;
-    String created_at;
-    String updated_at;
+    Date created_at;
+    Date updated_at;
 }
