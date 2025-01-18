@@ -112,7 +112,7 @@ public class AuthController {
 
         UserDto userDTO = UserDto.builder()
                 .id(currentUser.getId())
-                .name(currentUser.getName())
+                .username(currentUser.getName())
                 .email(currentUser.getEmail())
                 .created_at(currentUser.getCreated_at())
                 .updated_at(currentUser.getUpdated_at())
