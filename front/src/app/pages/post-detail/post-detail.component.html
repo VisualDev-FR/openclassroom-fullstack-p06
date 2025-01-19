@@ -6,8 +6,8 @@
 
   <div class="datas">
     <p>{{ post.created_at }}</p>
-    <p *ngIf="postAuthor">{{ postAuthor.username }}</p>
-    <p *ngIf="postTopic">{{ postTopic.title }}</p>
+    <p>{{ post.username }}</p>
+    <p>{{ post.topicTitle }}</p>
   </div>
 
   <p>{{ post.description }}</p>
@@ -17,8 +17,8 @@
 
   <h2>Commentaires</h2>
 
-  <div *ngFor="let comment of comments$ | async" class="comment-card">
-    <span class="user">{{ comment.user_id }}</span>
+  <div *ngFor="let comment of comments" class="comment-card">
+    <span class="user">{{ comment.username }}</span>
     <span class="comment">{{ comment.content }}</span>
   </div>
 

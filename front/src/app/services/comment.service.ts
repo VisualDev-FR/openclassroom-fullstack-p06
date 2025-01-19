@@ -13,4 +13,11 @@ export class CommentService {
   getCommentsByPostID(post_id: number): Observable<Comment[]> {
     return this.httpClient.get<Comment[]>(`/api/comment/post/${post_id}`)
   }
+
+  sendComment(content: string, post_id: number): Observable<Comment> {
+    return this.httpClient.post<Comment>(`/api/comment`, {
+      post_id: post_id,
+      content: content,
+    })
+  }
 }

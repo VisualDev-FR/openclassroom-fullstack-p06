@@ -5,4 +5,6 @@ export interface Post {
   title: string;
   description: string;
   created_at: Date;
+  username: string;
+  topicTitle: string;
 }
