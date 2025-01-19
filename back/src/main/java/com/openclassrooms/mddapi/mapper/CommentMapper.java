@@ -14,6 +14,7 @@ public interface CommentMapper extends EntityMapper<CommentDto, Comment> {
     @Override
     @Mapping(source = "post.id", target = "post_id")
     @Mapping(source = "author.id", target = "user_id")
+    @Mapping(source = "author.name", target = "username")
     CommentDto toDto(Comment comment);
 
     @Override

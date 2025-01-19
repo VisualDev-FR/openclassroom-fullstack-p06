@@ -36,6 +36,14 @@ public class CommentController {
         return ResponseEntity.ok().body(this.commentMapper.toDto(comments));
     }
 
+    @GetMapping("/api/comment/{id}")
+    public ResponseEntity<CommentDto> findByID(@PathVariable("id") Long comment_id) {
+
+        Comment comments = this.commentService.findById(comment_id);
+
+        return ResponseEntity.ok().body(this.commentMapper.toDto(comments));
+    }
+
     @GetMapping("/api/comment/post/{id}")
     public ResponseEntity<List<CommentDto>> findByPostID(@PathVariable("id") Long post_id) {
 

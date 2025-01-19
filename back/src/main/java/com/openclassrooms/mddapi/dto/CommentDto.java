@@ -20,4 +20,6 @@ public class CommentDto {
     private String content;
 
     private Date created_at;
+
+    private String username;
 }

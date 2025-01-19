@@ -22,4 +22,8 @@ public class PostDto {
     private String description;
 
     private Date created_at;
+
+    private String username;
+
+    private String topicTitle;
 }
