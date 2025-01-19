@@ -12,7 +12,7 @@ import lombok.Data;
 public class UserDto {
 
     Long id;
-    String username;
+    String name;
     String email;
     Date created_at;
     Date updated_at;

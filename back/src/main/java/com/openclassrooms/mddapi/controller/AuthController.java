@@ -17,6 +17,7 @@ import com.openclassrooms.mddapi.Exceptions.DuplicateUserException;
 import com.openclassrooms.mddapi.dto.LoginDto;
 import com.openclassrooms.mddapi.dto.RegisterDto;
 import com.openclassrooms.mddapi.dto.UserDto;
+import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.services.JWTService;
 import com.openclassrooms.mddapi.services.UserService;
 import com.openclassrooms.mddapi.model.User;
@@ -34,6 +35,9 @@ public class AuthController {
     private JWTService jwtService;
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     public AuthController(JWTService jwtService) {
@@ -45,9 +49,10 @@ public class AuthController {
         String jwt = jwtService.generateToken(user.getEmail());
 
         JwtResponse response = JwtResponse.builder()
-                .token(jwt)
                 .id(user.getId())
+                .token(jwt)
                 .email(user.getEmail())
+                .username(user.getName())
                 .build();
 
         return ResponseEntity
@@ -96,13 +101,9 @@ public class AuthController {
 
         User user = userservice.getCurrentUser();
 
-        UserDto dto = UserDto.builder()
-            .email(user.getEmail())
-            .build();
-
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(dto);
+                .body(this.userMapper.toDto(user));
     }
 
     @GetMapping("/api/user/{id}")
@@ -110,16 +111,8 @@ public class AuthController {
 
         User currentUser = userservice.findByID(id);
 
-        UserDto userDTO = UserDto.builder()
-                .id(currentUser.getId())
-                .username(currentUser.getName())
-                .email(currentUser.getEmail())
-                .created_at(currentUser.getCreated_at())
-                .updated_at(currentUser.getUpdated_at())
-                .build();
-
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userDTO);
+                .body(this.userMapper.toDto(currentUser));
     }
 }
