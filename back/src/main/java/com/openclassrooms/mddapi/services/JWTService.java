@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.payload.Response.JwtResponse;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,20 +21,32 @@ import io.jsonwebtoken.security.Keys;
 public class JWTService {
 
     @Value("${security.jwt.expiration-time}")
-    private int expiration;
+    public int expirationDelay;
 
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
 
-    public String generateToken(String username) {
+    public JwtResponse generateToken(User user) {
 
-        return Jwts
+        Date expirationDate = new Date(System.currentTimeMillis() + expirationDelay);
+
+        String token = Jwts
                 .builder()
-                .setSubject(username)
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(expirationDate)
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
+
+        JwtResponse response = JwtResponse.builder()
+                .id(user.getId())
+                .token(token)
+                .email(user.getEmail())
+                .username(user.getName())
+                .Expiration(expirationDate)
+                .build();
+
+        return response;
     }
 
     private Key getSignInKey() {

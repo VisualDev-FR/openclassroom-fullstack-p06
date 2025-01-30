@@ -46,14 +46,7 @@ public class AuthController {
 
     private ResponseEntity<JwtResponse> getToken(User user) {
 
-        String jwt = jwtService.generateToken(user.getEmail());
-
-        JwtResponse response = JwtResponse.builder()
-                .id(user.getId())
-                .token(jwt)
-                .email(user.getEmail())
-                .username(user.getName())
-                .build();
+        JwtResponse response = jwtService.generateToken(user);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
