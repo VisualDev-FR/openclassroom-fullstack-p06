@@ -46,9 +46,9 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.usernameControl = new FormControl(this.sessionService.sessionInformation?.username)
+    this.usernameControl = new FormControl(this.sessionService.getUsername())
     this.emailControl = new FormControl(
-      "", // this.sessionService.sessionInformation.email
+      this.sessionService.getEmail(),
       [Validators.email]
     )
 

@@ -20,7 +20,6 @@ import { Router } from '@angular/router';
 })
 export class PostsComponent implements OnInit {
 
-
   posts$!: Observable<Post[]>;
 
   constructor(
@@ -40,7 +39,7 @@ export class PostsComponent implements OnInit {
     this.router.navigateByUrl("/post/create");
   }
 
-  openPost(post: Post) {
+  openPost(post: Post): void {
     this.router.navigateByUrl(`/post/${post.id}`)
   }
 }

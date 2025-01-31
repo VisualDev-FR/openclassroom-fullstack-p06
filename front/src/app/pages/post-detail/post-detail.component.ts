@@ -51,7 +51,7 @@ export class PostDetailComponent implements OnInit {
       .subscribe(post => {
 
         if (!post) {
-          this.router.navigateByUrl("/404")
+          this.router.navigateByUrl("/404");
           return;
         }
 
@@ -63,7 +63,7 @@ export class PostDetailComponent implements OnInit {
       });
   }
 
-  sendComment() {
+  sendComment(): void {
 
     this.commentService.sendComment(this.comment, this.post.id)
       .pipe(first())

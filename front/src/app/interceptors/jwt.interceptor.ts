@@ -1,9 +1,14 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
+import { SessionService } from "../services/session.service";
 
 @Injectable({ providedIn: 'root' })
 export class JwtInterceptor implements HttpInterceptor {
+
+  constructor(
+    private sessionService: SessionService,
+  ) { }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler) {
 
@@ -11,7 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
       console.log(request.method, request.url);
     }
 
-    const token = localStorage.getItem("token")
+    const token = this.sessionService.getToken();
 
     if (token) {
       request = request.clone({
