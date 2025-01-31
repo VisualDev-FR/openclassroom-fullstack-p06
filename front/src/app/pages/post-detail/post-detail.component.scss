@@ -2,6 +2,7 @@
   position: absolute;
   overflow-y: auto;
   padding-bottom: 200px;
+  width: 100%;
 }
 
 .post-content {
@@ -10,7 +11,7 @@
   padding-bottom: 50px;
   border-bottom: 1px solid black;
 
-  .datas{
+  .datas {
     display: flex;
     gap: 20px;
     font-size: large;
