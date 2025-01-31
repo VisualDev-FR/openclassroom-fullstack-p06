@@ -35,6 +35,10 @@ export class PostsComponent implements OnInit {
     return "";
   }
 
+  getPostUrl(post: Post): string {
+    return `post/${post.id}`
+  }
+
   createPost(): void {
     this.router.navigateByUrl("/post/create");
   }
