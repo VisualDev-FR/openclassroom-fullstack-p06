@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SessionService } from '../../services/session.service';
-import { CommonModule, NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
