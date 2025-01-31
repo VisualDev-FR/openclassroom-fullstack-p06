@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { Post } from '../../interfaces/post.interface';
 import { PostService } from '../../services/post.service';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 export class PostsComponent implements OnInit {
 
   posts$!: Observable<Post[]>;
+  sortAscending$ = new BehaviorSubject<boolean>(true);
 
   constructor(
     private postService: PostService,
@@ -28,11 +29,21 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getAllPosts();
+    this.posts$ = combineLatest([this.postService.getAllPosts(), this.sortAscending$])
+      .pipe(
+        map(([posts, ascending]) => posts.sort((a, b) => {
+
+          const dateA = new Date(a.created_at).getTime();
+          const dateB = new Date(b.created_at).getTime();
+          const delta = dateB - dateA;
+
+          return ascending ? delta : -delta;
+        }))
+      );
   }
 
-  getAuthor(user_id: number): string {
-    return "";
+  changeSortOrder(): void {
+    this.sortAscending$.next(!this.sortAscending$.getValue());
   }
 
   getPostUrl(post: Post): string {
