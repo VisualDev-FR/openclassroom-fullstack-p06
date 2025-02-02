@@ -46,7 +46,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   refreshComments(post_id: number): void {
-    this.postService.findPostByID(post_id)
+    this.postService.findByID(post_id)
       .pipe(first())
       .subscribe(post => {
 

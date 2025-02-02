@@ -29,7 +29,7 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.posts$ = combineLatest([this.postService.getAllPosts(), this.sortAscending$])
+    this.posts$ = combineLatest([this.postService.findAll(), this.sortAscending$])
       .pipe(
         map(([posts, ascending]) => posts.sort((a, b) => {
 

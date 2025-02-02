@@ -11,11 +11,11 @@ export class PostService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAllPosts(): Observable<Post[]> {
+  public findAll(): Observable<Post[]> {
     return this.httpClient.get<Post[]>("/api/post")
   }
 
-  public findPostByID(post_id: number): Observable<Post | undefined> {
+  public findByID(post_id: number): Observable<Post | undefined> {
     return this.httpClient.get<Post | undefined>(`/api/post/${post_id}`)
   }
 
