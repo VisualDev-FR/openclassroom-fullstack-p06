@@ -16,10 +16,11 @@
   padding: 5px;
   border-radius: 5px;
   font-weight: bold;
+  transition: 250ms ease-in;
 
   &:hover {
     border: 1px solid red;
-    background: rgba(darkRed, $alpha: 0.1);
+    background: rgba(darkRed, $alpha: 0.05);
   }
 }
 

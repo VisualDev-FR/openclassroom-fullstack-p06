@@ -7,11 +7,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
-import { Observable } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { Topic } from '../../interfaces/topic.interface';
 import { TopicService } from '../../services/topic.service';
 import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
+import { SubscriptionService } from '../../services/subscription.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-profile',
@@ -42,6 +44,7 @@ export class UserProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private topicService: TopicService,
     private sessionService: SessionService,
+    private subscriptionService: SubscriptionService,
     private router: Router,
   ) { }
 
@@ -52,7 +55,7 @@ export class UserProfileComponent implements OnInit {
       [Validators.email]
     )
 
-    this.topics$ = this.topicService.getAllTopics();
+    this.topics$ = this.topicService.getSubscribedTopics();
     this.userForm = this.formBuilder.group({
       username: this.usernameControl,
       email: this.emailControl,
@@ -66,5 +69,12 @@ export class UserProfileComponent implements OnInit {
 
   onSave(): void { }
 
-  unsubscribe(topic: Topic): void { }
+  unsubscribe(topic: Topic): void {
+    this.subscriptionService.unsubscribe(topic.id)
+      .pipe(first())
+      .subscribe({
+        next: () => this.topics$ = this.topicService.getSubscribedTopics(),
+        error: (error: HttpErrorResponse) => alert(error.message),
+      });
+  }
 }

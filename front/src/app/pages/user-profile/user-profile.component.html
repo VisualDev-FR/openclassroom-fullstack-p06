@@ -41,6 +41,10 @@
 
   <h1>Abonnements</h1>
 
+  <span *ngIf="(topics$ | async)!.length == 0">
+    Abonnez vous à des thèmes pour consulter vos abonnements ici.
+  </span>
+
   <div class="cards">
     <div *ngFor="let topic of topics$ | async as topics" class="card">
       <h2>{{ topic.title }}</h2>
