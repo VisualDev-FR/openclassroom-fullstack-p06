@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.Exceptions.DuplicateSubscriptionException;
+import com.openclassrooms.mddapi.Exceptions.ResourceNotFoundException;
 import com.openclassrooms.mddapi.model.Subscription;
 import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
@@ -35,6 +36,13 @@ public class SubscriptionService {
         return this.subscriptionRepository.findByUserId(currentUser.getId());
     }
 
+    public Subscription find(Long topic_id, Long user_id) {
+        return this.subscriptionRepository
+                .findByTopicIdAndUserId(topic_id, user_id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Can't find subscription with topic_id: " + topic_id + " and user_id: " + user_id));
+    }
+
     public Subscription create(Long topic_id) {
 
         Topic topic = this.topicService.findByID(topic_id);
@@ -53,12 +61,21 @@ public class SubscriptionService {
         return this.subscriptionRepository.save(subscription);
     }
 
-    public void delete(Subscription subscription) {
+    public void delete(Long topic_id) {
+
+        Topic topic = this.topicService.findByID(topic_id);
+        User currentUser = this.userService.getCurrentUser();
+
+        Subscription subscription = this.find(topic.getId(), currentUser.getId());
+
         this.subscriptionRepository.delete(subscription);
     }
 
     public Boolean exists(Long topic_id, Long user_id) {
-        return false;
+
+        return this.subscriptionRepository
+                .findByTopicIdAndUserId(topic_id, user_id)
+                .isPresent();
     }
 
     public List<Topic> findSubscribedTopics() {
