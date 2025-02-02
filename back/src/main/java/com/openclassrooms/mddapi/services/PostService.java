@@ -27,8 +27,14 @@ public class PostService {
     @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     public List<Post> findAll() {
-        return postRepository.findAll();
+
+        List<Topic> subscribedTopics = this.subscriptionService.findSubscribedTopics();
+
+        return this.postRepository.findByTopicIn(subscribedTopics);
     }
 
     public Post findByID(Long post_id) {
