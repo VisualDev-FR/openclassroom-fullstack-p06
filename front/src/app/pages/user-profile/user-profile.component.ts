@@ -14,6 +14,10 @@ import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import { SubscriptionService } from '../../services/subscription.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { passwordValidator } from '../../validators/password.validator';
+import { UserUpdateRequest } from '../../interfaces/userUpdateRequest.interface';
+import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-profile',
@@ -37,8 +41,10 @@ export class UserProfileComponent implements OnInit {
   topics$!: Observable<Topic[]>;
   userForm!: FormGroup;
   errorMessage: string = "";
+  currentPwControl!: FormControl;
   usernameControl!: FormControl;
   emailControl!: FormControl;
+  passwordControl!: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,19 +52,23 @@ export class UserProfileComponent implements OnInit {
     private sessionService: SessionService,
     private subscriptionService: SubscriptionService,
     private router: Router,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
-    this.usernameControl = new FormControl(this.sessionService.getUsername())
-    this.emailControl = new FormControl(
-      this.sessionService.getEmail(),
-      [Validators.email]
-    )
+
+    this.currentPwControl = new FormControl(null, [Validators.required]);
+    this.usernameControl = new FormControl(this.sessionService.getUsername());
+    this.emailControl = new FormControl(this.sessionService.getEmail(), [Validators.email]);
+    this.passwordControl = new FormControl(null, [passwordValidator(false)]);
 
     this.topics$ = this.topicService.getSubscribedTopics();
     this.userForm = this.formBuilder.group({
+      currentPassword: this.currentPwControl,
       username: this.usernameControl,
       email: this.emailControl,
+      password: this.passwordControl,
     })
   }
 
@@ -67,14 +77,31 @@ export class UserProfileComponent implements OnInit {
     this.router.navigateByUrl("/login");
   }
 
-  onSave(): void { }
+  onSave(): void {
+    let updateRequest = this.userForm.value as UserUpdateRequest;
+
+    console.log(updateRequest);
+
+    this.authService.update(updateRequest)
+      .pipe(first())
+      .subscribe({
+        next: session => {
+          this.sessionService.logIn(session);
+          this.snackBar.open("Credentials updated !", "OK", { duration: 2000 });
+        },
+        error: (error: HttpErrorResponse) => alert(error.message),
+      })
+  }
 
   unsubscribe(topic: Topic): void {
     this.subscriptionService.unsubscribe(topic.id)
       .pipe(first())
       .subscribe({
-        next: () => this.topics$ = this.topicService.getSubscribedTopics(),
-        error: (error: HttpErrorResponse) => alert(error.message),
+        next: () => {
+          this.topics$ = this.topicService.getSubscribedTopics()
+          this.errorMessage = "";
+        },
+        error: (error: HttpErrorResponse) => this.errorMessage = error.message,
       });
   }
 }

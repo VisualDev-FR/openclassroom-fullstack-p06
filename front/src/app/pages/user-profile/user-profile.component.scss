@@ -28,10 +28,10 @@
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  width: 100%;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  width: 100%;
 
   .separator {
     border-top: 1px solid black;
@@ -58,4 +58,8 @@
       align-self: center;
     }
   }
+}
+
+mdd-button{
+  margin-top: 50px;
 }

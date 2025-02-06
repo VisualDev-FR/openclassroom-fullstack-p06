@@ -1,32 +1,40 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserDTO } from '../dto/UserDTO';
+import { UserDTO } from '../interfaces/dto/user.dto.interface';
 import { SessionInformation } from '../interfaces/sessionInformation.interface';
 import { RegisterRequest } from '../interfaces/registerRequest.interface';
 import { LoginRequest } from '../interfaces/loginRequest.interface';
+import { UserUpdateRequest } from '../interfaces/userUpdateRequest.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private httpClient!: HttpClient;
+  private httpClientPublic!: HttpClient;
 
-  constructor(handler: HttpBackend) {
+  constructor(
+    private httpClient: HttpClient,
+    handler: HttpBackend,
+  ) {
     // prevent requests to be intercepted by jwtInterceptor
-    this.httpClient = new HttpClient(handler);
+    this.httpClientPublic = new HttpClient(handler);
   }
 
   public register(registerRequest: RegisterRequest): Observable<SessionInformation> {
-    return this.httpClient.post<SessionInformation>("/api/auth/register", registerRequest);
+    return this.httpClientPublic.post<SessionInformation>("/api/auth/register", registerRequest);
   }
 
   public login(loginRequest: LoginRequest): Observable<SessionInformation> {
-    return this.httpClient.post<SessionInformation>("/api/auth/login", loginRequest);
+    return this.httpClientPublic.post<SessionInformation>("/api/auth/login", loginRequest);
   }
 
   public me(): Observable<UserDTO> {
-    return this.httpClient.get<UserDTO>("/api/auth/me");
+    return this.httpClientPublic.get<UserDTO>("/api/auth/me");
+  }
+
+  public update(updateRequest: UserUpdateRequest): Observable<SessionInformation> {
+    return this.httpClient.patch<SessionInformation>(`/api/auth/me`, updateRequest);
   }
 }
