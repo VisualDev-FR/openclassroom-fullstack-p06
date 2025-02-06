@@ -22,7 +22,14 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private JWTService jwtService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public User save(User user) {
+        return this.userRepository.save(user);
+    }
 
     public User findByEmail(String email) {
         return userRepository
@@ -40,8 +47,14 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User createUser(String username, String email, String password) {
+
+        User user = new User();
+
+        user.setName(username);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+
         return userRepository.save(user);
     }
 
@@ -52,13 +65,8 @@ public class UserService implements UserDetailsService {
                 .getPrincipal();
     }
 
-    public Boolean userExistsByEmail(String email) {
-
-        User user = userRepository
-                .findByEmail(email)
-                .orElse(null);
-
-        return user != null;
+    public Boolean existsByEmail(String email) {
+        return this.userRepository.existsByEmail(email);
     }
 
     @Override
