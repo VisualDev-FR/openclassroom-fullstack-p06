@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../../interfaces/post.interface';
 import { PostService } from '../../services/post.service';
-import { first } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { first, Observable } from 'rxjs';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Comment } from '../../interfaces/comment.interface';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommentService } from '../../services/comment.service';
 import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-post',
@@ -18,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     NavbarComponent,
     BackArrowComponent,
     FormsModule,
+    AsyncPipe,
   ],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.scss'
@@ -28,6 +30,7 @@ export class PostDetailComponent implements OnInit {
   comments!: Comment[];
   comment: string = "";
   post!: Post;
+  isMobile$!: Observable<Boolean>;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,10 +38,11 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private commentService: CommentService,
     private snackBar: MatSnackBar,
+    private layoutService: LayoutService,
   ) { }
 
   ngOnInit(): void {
-
+    this.isMobile$ = this.layoutService.isMobile$();
     this.route.params.subscribe(params => {
       let post_id = +params["id"];
       this.refreshComments(post_id);
