@@ -30,6 +30,11 @@
   margin: 0 auto;
   min-width: var(--min-width);
 
+  span{
+    text-align: center;
+    margin-top: 50px;
+  }
+
   .post {
     text-decoration: none;
     color: black;

@@ -21,12 +21,14 @@
 
   textarea {
     resize: none;
-    height: 100px;
+    min-height: 200px;
   }
 }
 
 @media (max-width: 500px) {
-  .post-form h1 {
-    margin-top: 80px;
+  .post-form {
+    h1 {
+      margin-top: 80px;
+    }
   }
 }
