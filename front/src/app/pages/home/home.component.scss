@@ -1,14 +1,51 @@
 .center {
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 100px;
+  align-items: space-between;
   flex-direction: column;
+  min-width: var(--min-width);
+  max-width: 400px;
+  gap: 100px;
+  margin: 0 auto;
+
+  .logo {
+    width: 100%;
+  }
 }
 
-.buttons{
+.buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+
+  button {
+    width: 50%;
+    border-radius: 10px;
+    height: 50px;
+    background: none;
+    border: 1px solid black;
+    font-size: large;
+    cursor: pointer;
+  }
+}
+
+.center.mobile {
+
+  gap: 50px;
+  width: 300px;
+
+  .logo {
+    align-self: center;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+
+    button{
+      width: 80%;
+    }
+  }
 }
