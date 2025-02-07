@@ -17,6 +17,7 @@
   mat-error {
     align-self: center;
     text-wrap: nowrap;
+    transition: margin 0.25s ease;
   }
 
   textarea {
@@ -26,9 +27,7 @@
 }
 
 @media (max-width: 500px) {
-  .post-form {
-    h1 {
-      margin-top: 80px;
-    }
+  .post-form h1 {
+    margin-top: 80px;
   }
 }
