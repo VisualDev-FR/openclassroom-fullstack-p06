@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,11 +21,6 @@ export class NavbarComponent {
   @Input() currentPage: string = "";
 
   isLogged(): boolean {
-
-    if (environment.debug) {
-      return true;
-    }
-
     return this.sessionService.isLogged
   }
 }

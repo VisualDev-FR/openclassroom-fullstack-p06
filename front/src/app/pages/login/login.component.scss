@@ -6,6 +6,11 @@
   align-items: center;
   width: 100%;
   gap: 20px;
+  min-width: var(--min-width);
+}
+
+.logo{
+  height: 200px;
 }
 
 .form-field{

@@ -1,8 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
 :root {
   --mdd-color-rgb: 120, 96, 194;
   --mdd-color: rgb(var(--mdd-color-rgb));
+  --min-width: 350px;
 }
 
 html,
@@ -21,5 +20,4 @@ body {
 .mat-stroked-button,
 .mat-icon-button {
   border-radius: 4px;
-  /* Ajustez la valeur selon vos besoins */
 }

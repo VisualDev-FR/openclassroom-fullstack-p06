@@ -1,7 +1,7 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserDTO } from '../interfaces/dto/user.dto.interface';
+import { UserDTO } from '../interfaces/user.dto.interface';
 import { SessionInformation } from '../interfaces/sessionInformation.interface';
 import { RegisterRequest } from '../interfaces/registerRequest.interface';
 import { LoginRequest } from '../interfaces/loginRequest.interface';

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { first } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { SessionService } from '../../services/session.service';
 import { SessionInformation } from '../../interfaces/sessionInformation.interface';
 import { LoginRequest } from '../../interfaces/loginRequest.interface';
@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-auth',
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   authForm!: FormGroup;
   errorMessage: string = "";
+  isMobile$!: Observable<Boolean>;
 
   readonly email = new FormControl("", [Validators.required, Validators.email])
   readonly password = new FormControl("", [Validators.required])
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private sessionService: SessionService,
+    private layoutService: LayoutService,
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +57,8 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password,
     })
+
+    this.isMobile$ = this.layoutService.isMobile$();
   }
 
   onSubmit(): void {
