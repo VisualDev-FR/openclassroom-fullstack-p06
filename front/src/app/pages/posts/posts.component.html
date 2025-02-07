@@ -1,6 +1,6 @@
 <app-navbar currentPage="articles" />
 
-<div class="actions-bar">
+<div class="actions-bar" [ngClass]="{'mobile': isMobile$ | async}">
   <mdd-button caption="Créer un article" class="create-button" (click)="createPost()" />
 
   <span class="sort-by" (click)="changeSortOrder()">
@@ -9,7 +9,7 @@
 
 </div>
 
-<div class="posts-container">
+<div class="posts-container" [ngClass]="{'mobile': isMobile$ | async}">
 
   <span *ngIf="(posts$ | async)!.length == 0">
     Abonnez vous à des thèmes pour consulter les articles associés ici.

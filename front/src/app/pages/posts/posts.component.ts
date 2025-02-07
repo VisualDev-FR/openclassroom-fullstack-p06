@@ -6,14 +6,15 @@ import { Post } from '../../interfaces/post.interface';
 import { PostService } from '../../services/post.service';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
 import { Router } from '@angular/router';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-articles',
   imports: [
+    MddButtonComponent,
     NavbarComponent,
     CommonModule,
     AsyncPipe,
-    MddButtonComponent,
   ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
@@ -22,13 +23,16 @@ export class PostsComponent implements OnInit {
 
   posts$!: Observable<Post[]>;
   sortAscending$ = new BehaviorSubject<boolean>(true);
+  isMobile$!: Observable<Boolean>;
 
   constructor(
     private postService: PostService,
     private router: Router,
+    private layoutService: LayoutService,
   ) { }
 
   ngOnInit(): void {
+    this.isMobile$ = this.layoutService.isMobile$();
     this.posts$ = combineLatest([this.postService.findAll(), this.sortAscending$])
       .pipe(
         map(([posts, ascending]) => posts.sort((a, b) => {
