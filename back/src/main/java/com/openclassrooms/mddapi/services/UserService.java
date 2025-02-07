@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,10 +33,8 @@ public class UserService implements UserDetailsService {
         return this.userRepository.save(user);
     }
 
-    public User findByEmail(String email) {
-        return userRepository
-                .findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("Can't find user with email: " + email));
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public User findByID(Integer id) {
@@ -71,7 +71,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findByEmail(username);
+        Optional<User> user = findByEmail(username);
+
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException("Login / mot de pass incorect");
+        }
+
+        return user.get();
     }
 
 }

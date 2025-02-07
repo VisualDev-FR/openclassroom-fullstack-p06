@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,9 +54,9 @@ public class AuthService {
 
         this.TryAuthenticate(data.getEmail(), data.getPassword());
 
-        User user = userService.findByEmail(data.getEmail());
+        Optional<User> user = userService.findByEmail(data.getEmail());
 
-        return this.jwtService.generateToken(user);
+        return this.jwtService.generateToken(user.get());
     }
 
     public Authentication TryAuthenticate(String email, String password) {
