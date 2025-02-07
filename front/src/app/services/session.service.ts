@@ -7,7 +7,7 @@ import { SessionInformation } from '../interfaces/sessionInformation.interface';
 })
 export class SessionService {
 
-  public isLogged: boolean = false;
+  public isLogged: boolean = true;
 
   public logIn(sessionInformation: SessionInformation): void {
     localStorage.setItem("token", sessionInformation.token)

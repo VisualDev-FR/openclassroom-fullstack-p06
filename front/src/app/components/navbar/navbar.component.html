@@ -1,12 +1,26 @@
 <img src="/assets/logo_p6.png" class="icon" />
 
-
 @if(isLogged()){
 
-<span class="separator"></span>
+  <span class="separator"></span>
 
-<a [ngClass]="{'selected': currentPage === 'articles'}" href="/articles">Articles</a>
-<a [ngClass]="{'selected': currentPage === 'themes'}" href="/themes">Thèmes</a>
+  @if(!(isMobile$ | async)){
+    <a [ngClass]="{'selected': currentPage === 'articles'}" href="/articles">Articles</a>
+    <a [ngClass]="{'selected': currentPage === 'themes'}" href="/themes">Thèmes</a>
+    <a class="fa fa-user-o user" [ngClass]="{'selected': currentPage === 'user'}"  href="/user"></a>
+  }
+  @else{
+    <i class="fa fa-bars" (click)="toggleLateralMenu()"></i>
 
-<i class="fa fa-user-o user" [ngClass]="{'selected': currentPage === 'user'}" (click)="router.navigateByUrl('/user')"></i>
+    @if(showLateralMenu){
+      <div class="modal-overlay"  (click)="toggleLateralMenu()"></div>
+
+      <div class="lateral-menu" >
+        <a [ngClass]="{'selected': currentPage === 'articles'}" href="/articles">Articles</a>
+        <a [ngClass]="{'selected': currentPage === 'themes'}" href="/themes">Thèmes</a>
+        <span class="separator"></span>
+        <a class="fa fa-user-o user" [ngClass]="{'selected': currentPage === 'user'}"  href="/user"></a>
+      </div>
+    }
+  }
 }
