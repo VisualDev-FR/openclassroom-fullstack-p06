@@ -14,7 +14,7 @@
     cursor: pointer;
   }
 
-  &.mobile{
+  &.mobile {
     flex-direction: column;
     gap: 20px;
   }
@@ -39,6 +39,10 @@
     background-color: rgba($color: #000000, $alpha: 0.05);
     transition: 0.25s ease;
 
+    p {
+      text-align: justify;
+    }
+
     &:hover {
       cursor: pointer;
       transform: scale(1.02);
@@ -46,10 +50,10 @@
     }
   }
 
-  &.mobile{
+  &.mobile {
     display: grid;
 
-    .post{
+    .post {
       width: 80%;
       margin: 0 auto;
     }
