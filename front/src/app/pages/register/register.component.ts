@@ -8,13 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
 import { AuthService } from '../../services/auth.service';
 import { RegisterRequest } from '../../interfaces/registerRequest.interface';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { SessionInformation } from '../../interfaces/sessionInformation.interface';
 import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-register',
@@ -31,12 +32,13 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
     NavbarComponent,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: "../login/login.component.scss",
 })
 export class RegisterComponent {
 
   authForm!: FormGroup;
   errorMessage: string = "";
+  isMobile$!: Observable<Boolean>;
 
   readonly username = new FormControl("", [Validators.required])
   readonly email = new FormControl("", [Validators.required, Validators.email])
@@ -47,9 +49,13 @@ export class RegisterComponent {
     private authService: AuthService,
     private sessionService: SessionService,
     private router: Router,
+    private layoutService: LayoutService,
   ) { }
 
   ngOnInit(): void {
+
+    this.isMobile$ = this.layoutService.isMobile$();
+
     this.authForm = this.formBuilder.group({
       username: this.username,
       email: this.email,
