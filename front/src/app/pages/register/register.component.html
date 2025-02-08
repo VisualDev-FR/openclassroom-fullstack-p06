@@ -1,5 +1,5 @@
 <app-navbar *ngIf="!(isMobile$ | async)" />
-<app-back-arrow />
+<app-back-arrow url="/" />
 
 <form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
 

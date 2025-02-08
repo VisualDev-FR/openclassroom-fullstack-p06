@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (response: SessionInformation) => {
           this.sessionService.logIn(response);
-          this.router.navigate(['/articles']);
+          this.router.navigate(['/posts']);
         },
         error: (error: HttpErrorResponse) => {
 
@@ -76,8 +76,7 @@ export class LoginComponent implements OnInit {
             this.errorMessage = "Nom d'utilisateur ou mot de passe incorrect."
           }
           else {
-            console.log("error status: ", error.status);
-            this.errorMessage = "An error occured"
+            this.errorMessage = error.message
           }
         },
       })

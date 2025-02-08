@@ -70,7 +70,7 @@ export class RegisterComponent {
       .subscribe({
         next: (response: SessionInformation) => {
           this.sessionService.logIn(response);
-          this.router.navigate(['/articles']);
+          this.router.navigate(['/posts']);
         },
         error: (error: HttpErrorResponse) => {
 

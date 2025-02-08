@@ -82,7 +82,7 @@ export class PostCreationComponent {
       .subscribe({
         next: post => {
           this.snackBar.open("Article créé !", "OK", { duration: 3000 });
-          this.router.navigateByUrl("/articles")
+          this.router.navigateByUrl("/posts")
         },
         error: (error: HttpErrorResponse) => {
           this.errorMessage = `Une erreur est survenue. (${error.status})`

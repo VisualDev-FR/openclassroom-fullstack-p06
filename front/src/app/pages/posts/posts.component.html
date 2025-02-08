@@ -1,4 +1,4 @@
-<app-navbar currentPage="articles" />
+<app-navbar currentPage="posts" />
 
 <div class="actions-bar" [ngClass]="{'mobile': isMobile$ | async}">
   <mdd-button caption="Créer un article" class="create-button" (click)="createPost()" />
@@ -11,7 +11,7 @@
 
 <div class="posts-container" [ngClass]="{'mobile': isMobile$ | async}">
 
-  <span *ngIf="(posts$ | async)!.length == 0">
+  <span *ngIf="(posts$ | async)?.length == 0">
     Abonnez vous à des thèmes pour consulter les articles associés ici.
   </span>
 

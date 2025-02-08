@@ -51,14 +51,14 @@ export class PostsComponent implements OnInit {
   }
 
   getPostUrl(post: Post): string {
-    return `post/${post.id}`
+    return `posts/${post.id}`
   }
 
   createPost(): void {
-    this.router.navigateByUrl("/post/create");
+    this.router.navigateByUrl("/posts/create");
   }
 
   openPost(post: Post): void {
-    this.router.navigateByUrl(`/post/${post.id}`)
+    this.router.navigateByUrl(`/posts/${post.id}`)
   }
 }
