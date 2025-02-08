@@ -1,0 +1,80 @@
+<app-navbar currentPage="user" />
+
+<form class="user-form" [formGroup]="userForm" (ngSubmit)="onSave()">
+
+  <h1>Profil utilisateur</h1>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Nom d'utilisateur</mat-label>
+
+    <input matInput formControlName="username">
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Email</mat-label>
+
+    <input matInput formControlName="email">
+
+    <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+      email invalide.
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Mot de passe actuel</mat-label>
+
+    <input matInput formControlName="currentPassword" type="password">
+
+    <mat-error *ngIf="userForm.controls['currentPassword'].hasError('required')" >
+      Mot de passe requis
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+
+    <mat-label>Nouveau mot de passe</mat-label>
+
+    <input matInput formControlName="password" type="password">
+
+    <mat-error *ngIf="userForm.controls['password'].hasError('password')" >
+      {{ userForm.controls["password"].getError("password") }}
+    </mat-error>
+
+  </mat-form-field>
+
+  <mdd-button caption="Sauvegarder" type="submit" [disabled]="userForm.invalid">
+  </mdd-button>
+
+  <button class="logout-button" type="button" (click)="logout()">Se déconnecter</button>
+
+  <mat-error *ngIf="errorMessage" class="error-message">
+    {{errorMessage}}
+  </mat-error>
+
+</form>
+
+<div class="subscriptions">
+
+  <span class="separator"></span>
+
+  <h1>Abonnements</h1>
+
+  <span *ngIf="(topics$ | async)?.length == 0">
+    Abonnez vous à des thèmes pour consulter vos abonnements ici.
+  </span>
+
+  <div class="cards">
+    <div *ngFor="let topic of topics$ | async as topics" class="card">
+      <h2>{{ topic.title }}</h2>
+      <p>{{ topic.description }}</p>
+      <mdd-button caption="Se désabonner" class="button" (click)="unsubscribe(topic)" />
+    </div>
+  </div>
+
+</div>

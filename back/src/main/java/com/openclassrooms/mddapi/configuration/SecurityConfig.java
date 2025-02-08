@@ -35,13 +35,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/files/**",
-                                "/auth/register",
-                                "/auth/login",
+                                "/api/auth/register/**",
+                                "/api/auth/login/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**")
                         .permitAll()
-                        .anyRequest().authenticated() // Protect all other endpoints
+                        .anyRequest()
+                        .authenticated() // Protect all other endpoints
                 )
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions

@@ -1,1 +1,26 @@
-<p>navbar works!</p>
+<img src="/assets/logo_p6.png" class="icon" />
+
+@if(isLogged()){
+
+  <span class="separator"></span>
+
+  @if(!(isMobile$ | async)){
+    <a [ngClass]="{'selected': currentPage === 'posts'}" href="/posts">Articles</a>
+    <a [ngClass]="{'selected': currentPage === 'themes'}" href="/themes">Thèmes</a>
+    <a class="fa fa-user-o user" [ngClass]="{'selected': currentPage === 'user'}"  href="/user"></a>
+  }
+  @else{
+    <i class="fa fa-bars" (click)="toggleLateralMenu()"></i>
+
+    @if(showLateralMenu){
+      <div class="modal-overlay"  (click)="toggleLateralMenu()"></div>
+
+      <div class="lateral-menu" >
+        <a [ngClass]="{'selected': currentPage === 'posts'}" href="/posts">Articles</a>
+        <a [ngClass]="{'selected': currentPage === 'themes'}" href="/themes">Thèmes</a>
+        <span class="separator"></span>
+        <a class="fa fa-user-o user" [ngClass]="{'selected': currentPage === 'user'}"  href="/user"></a>
+      </div>
+    }
+  }
+}

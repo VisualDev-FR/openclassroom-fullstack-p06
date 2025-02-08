@@ -1,0 +1,25 @@
+<app-navbar currentPage="posts" />
+
+<div class="actions-bar" [ngClass]="{'mobile': isMobile$ | async}">
+  <mdd-button caption="Créer un article" class="create-button" (click)="createPost()" />
+
+  <span class="sort-by" (click)="changeSortOrder()">
+    Trier par {{ sortAscending$.getValue() ? "&#8593;" : "&#8595;"}}
+  </span>
+
+</div>
+
+<div class="posts-container" [ngClass]="{'mobile': isMobile$ | async}">
+
+  <span *ngIf="(posts$ | async)?.length == 0">
+    Abonnez vous à des thèmes pour consulter les articles associés ici.
+  </span>
+
+  <a class="post" *ngFor="let post of posts$ | async" [href]="getPostUrl(post)">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.username }}</p>
+    <p>{{ post.description }}</p>
+  </a>
+
+</div>

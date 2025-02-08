@@ -1,0 +1,76 @@
+:host{
+  position: absolute;
+  width: 100%;
+  min-width: var(--min-width);
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout-button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: red;
+  border: 1px solid transparent;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: 250ms ease-in;
+
+  &:hover {
+    border: 1px solid red;
+    background: rgba(darkRed, $alpha: 0.05);
+  }
+}
+
+.subscriptions {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  span{
+    text-align: center;
+    max-width: 95%;
+  }
+
+  .separator {
+    border-top: 1px solid black;
+    width: 80%;
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 200px;
+    max-width: 80%;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba($color: #000000, $alpha: 0.05);
+
+    .button {
+      align-self: center;
+    }
+  }
+}
+
+mdd-button{
+  margin-top: 50px;
+}

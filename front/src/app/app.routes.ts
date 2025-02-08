@@ -1,12 +1,23 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { AuthComponent } from './pages/login/login.component';
-import { ArticlesComponent } from './pages/articles/articles.component';
+import { LoginComponent } from './pages/login/login.component';
+import { PostsComponent } from './pages/posts/posts.component';
 import { AuthGuard } from './guards/auth.guards';
+import { RegisterComponent } from './pages/register/register.component';
+import { TopicsComponent } from './pages/topics/topics.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { PostCreationComponent } from './pages/post-creation/post-creation.component';
+import { PostDetailComponent } from './pages/post-detail/post-detail.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
-  { path: 'login', component: AuthComponent },
-  { path: 'register', component: AuthComponent },
-  { path: 'articles', component: ArticlesComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'posts/create', component: PostCreationComponent, canActivate: [AuthGuard] },
+  { path: 'posts/:id', component: PostDetailComponent, canActivate: [AuthGuard] },
+  { path: 'themes', component: TopicsComponent, canActivate: [AuthGuard] },
+  { path: 'user', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'not-found', component: NotFoundComponent, canActivate: [AuthGuard] },
 ];

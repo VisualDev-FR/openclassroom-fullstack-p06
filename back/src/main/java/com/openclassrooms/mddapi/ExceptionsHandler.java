@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import com.openclassrooms.mddapi.Exceptions.DuplicateSubscriptionException;
 import com.openclassrooms.mddapi.Exceptions.DuplicateUserException;
 import com.openclassrooms.mddapi.Exceptions.ResourceNotFoundException;
 import com.openclassrooms.mddapi.dto.ExceptionDto;
@@ -64,13 +66,13 @@ public class ExceptionsHandler {
     public ResponseEntity<ExceptionDto> handleDuplicateUserException(Exception e, WebRequest request) {
         return new ResponseEntity<ExceptionDto>(
                 new ExceptionDto(e),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
+    @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class})
     public ResponseEntity<ExceptionDto> handleAuthenticationException(Exception e, WebRequest request) {
         return new ResponseEntity<ExceptionDto>(
-                new ExceptionDto("Bad credentials", e.getClass().getName()),
+                new ExceptionDto("Bad credentials", e.getMessage()),
                 HttpStatus.UNAUTHORIZED);
     }
 
@@ -83,6 +85,13 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDto> handleHttpMessageNotReadableException(Exception e, WebRequest request) {
+        return new ResponseEntity<ExceptionDto>(
+                new ExceptionDto(e),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateSubscriptionException.class)
+    public ResponseEntity<ExceptionDto> handleDuplicateSubscriptionException(Exception e, WebRequest request) {
         return new ResponseEntity<ExceptionDto>(
                 new ExceptionDto(e),
                 HttpStatus.BAD_REQUEST);

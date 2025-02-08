@@ -24,7 +24,7 @@ public class Post {
     public static final int DESC_MAX_SIZE = 1024;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     @ManyToOne

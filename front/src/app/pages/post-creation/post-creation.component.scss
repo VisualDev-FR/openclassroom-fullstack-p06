@@ -1,0 +1,33 @@
+:host {
+  position: absolute;
+  width: 100%;
+  min-width: var(--min-width);
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: min(var(--min-width), 90%);
+  gap: 20px;
+
+  h1,
+  mdd-button,
+  mat-error {
+    align-self: center;
+    text-wrap: nowrap;
+    transition: margin 0.25s ease;
+  }
+
+  textarea {
+    resize: none;
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 500px) {
+  .post-form h1 {
+    margin-top: 80px;
+  }
+}

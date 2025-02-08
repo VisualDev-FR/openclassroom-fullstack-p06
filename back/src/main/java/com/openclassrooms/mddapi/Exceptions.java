@@ -13,4 +13,10 @@ public class Exceptions {
             super(String.format("User with email '%s' already exists.", email));
         }
     }
+
+    public static class DuplicateSubscriptionException extends RuntimeException {
+        public DuplicateSubscriptionException(Long user_id, Long topic_id) {
+            super(String.format("User '%s' already subscribed to topic '%s'", user_id, topic_id));
+        }
+    }
 }

@@ -1,0 +1,46 @@
+<app-navbar currentPage="posts" />
+<app-back-arrow url="/posts" />
+
+<div *ngIf="post" class="post-section" [ngClass]="{'mobile': isMobile$ | async}">
+
+  <h2>{{ post.title }}</h2>
+
+  <div class="datas">
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.username }}</p>
+    <p>{{ post.topicTitle }}</p>
+  </div>
+
+  <p>{{ post.description }}</p>
+</div>
+
+<div class="comment-section" [ngClass]="{'mobile': isMobile$ | async}">
+
+  <h2>Commentaires</h2>
+
+  <div *ngFor="let comment of comments" class="comment-card" >
+    <span class="user">{{ comment.username }}</span>
+    <span class="comment">{{ comment.content }}</span>
+  </div>
+
+</div>
+
+<div class="comment-form" [ngClass]="{'mobile': isMobile$ | async}">
+
+  <textarea
+    placeholder="Ecrivez votre commentaire"
+    [(ngModel)]="comment"
+    [maxLength]="maxCommentLength">
+  </textarea>
+
+  <svg class="send-button" (click)="sendComment()"
+    width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M45.9999 3L22.3499 26.65" stroke="#7763C5" stroke-width="5" stroke-linecap="round"
+      stroke-linejoin="round" />
+    <path d="M46 3L30.95 46L22.35 26.65L3 18.05L46 3Z" stroke="#7763C5" stroke-width="5" stroke-linecap="round"
+      stroke-linejoin="round" />
+  </svg>
+
+  <p class="counter">{{ comment.length }} / {{ maxCommentLength }}</p>
+
+</div>

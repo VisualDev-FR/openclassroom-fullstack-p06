@@ -1,34 +1,39 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionInformation } from '../interfaces/sessionInformation.interface';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  public isLogged = false;
-  public sessionInformation: SessionInformation | undefined;
+  public isLogged: boolean = true;
 
-  private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
-
-  public $isLogged(): Observable<boolean> {
-    return this.isLoggedSubject.asObservable();
-  }
-
-  public logIn(user: SessionInformation): void {
-    this.sessionInformation = user;
+  public logIn(sessionInformation: SessionInformation): void {
+    localStorage.setItem("token", sessionInformation.token)
+    localStorage.setItem("username", sessionInformation.username)
+    localStorage.setItem("email", sessionInformation.email)
     this.isLogged = true;
-    this.next();
+
+    console.log(sessionInformation.expiration);
   }
 
   public logOut(): void {
-    this.sessionInformation = undefined;
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
     this.isLogged = false;
-    this.next();
   }
 
-  private next(): void {
-    this.isLoggedSubject.next(this.isLogged);
+  public getEmail(): string | null {
+    return localStorage.getItem("email")
+  }
+
+  public getUsername(): string | null {
+    return localStorage.getItem("username");
+  }
+
+  public getToken(): string | null {
+    return localStorage.getItem("token");
   }
 }

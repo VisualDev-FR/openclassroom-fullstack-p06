@@ -1,0 +1,12 @@
+<app-navbar currentPage="themes" />
+
+<div class="topics-container">
+
+  <div class="topic" *ngFor="let topic of topics$ | async">
+    <h1>{{ topic.title }}</h1>
+    <p>{{ topic.description }}</p>
+
+    <mdd-button [caption]="isSubscribed(topic) ? 'Se désabonner': 'S\'abonner'" class="subscribe-button" (click)="clickSubscription(topic)" />
+  </div>
+
+</div>

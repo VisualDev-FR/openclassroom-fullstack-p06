@@ -1,10 +1,8 @@
 
 export interface SessionInformation {
-  token: string;
-  type: string;
   id: number;
+  token: string;
+  email: string;
   username: string;
-  firstName: string;
-  lastName: string;
-  admin: boolean;
+  expiration: Date;
 }

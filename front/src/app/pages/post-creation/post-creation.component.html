@@ -1,0 +1,33 @@
+<app-navbar />
+<app-back-arrow url="/posts" />
+
+<form class="post-form" [formGroup]="postform" (ngSubmit)="createPost()">
+
+  <h1>Créer un nouvel article</h1>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Selectionner un thème</mat-label>
+    <mat-select formControlName="topic">
+      <mat-option *ngFor="let topic of topics$ | async" [value]="topic">{{ topic.title }}</mat-option>
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Titre</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Contenu de l'article</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mdd-button caption="Créer" type="submit" [disabled]="!formIsValid()">
+  </mdd-button>
+
+  <mat-error *ngIf="errorMessage" class="error-message">
+    {{errorMessage}}
+  </mat-error>
+
+</form>
