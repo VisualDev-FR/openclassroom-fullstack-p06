@@ -89,7 +89,22 @@ export class UserProfileComponent implements OnInit {
           this.sessionService.logIn(session);
           this.snackBar.open("Credentials updated !", "OK", { duration: 2000 });
         },
-        error: (error: HttpErrorResponse) => alert(error.message),
+        error: (error: HttpErrorResponse) => {
+
+          let message = error.message;
+
+          switch (error.status) {
+
+            case 409:
+              message = "A user already exists with this email";
+              break;
+
+            default:
+              break;
+          }
+
+          this.snackBar.open(message, "OK", { duration: 5000 });
+        }
       })
   }
 
