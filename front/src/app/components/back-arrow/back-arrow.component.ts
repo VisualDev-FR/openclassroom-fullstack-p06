@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,11 +10,19 @@ import { Router } from '@angular/router';
 })
 export class BackArrowComponent {
 
-  @Input() url: string = "/";
+  @Input() url: string | undefined;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private location: Location,
+  ) { }
 
   navigateBack(): void {
-    this.router.navigate([this.url]);
+    if (this.url) {
+      this.router.navigate([this.url]);
+    }
+    else {
+      this.location.back();
+    }
   }
 }
