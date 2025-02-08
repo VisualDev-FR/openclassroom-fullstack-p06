@@ -62,7 +62,7 @@ export class PostCreationComponent {
       description: this.contentControl,
     })
 
-    this.topics$ = this.topicService.getAllTopics();
+    this.topics$ = this.topicService.getSubscribedTopics();
   }
 
   public createPost(): void {
