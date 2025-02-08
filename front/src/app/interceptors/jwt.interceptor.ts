@@ -44,8 +44,12 @@ export class JwtInterceptor implements HttpInterceptor {
             case 401:
             case 403:
               this.sessionService.logOut();
-              this.router.navigateByUrl("/login");
+              this.router.navigate(["/login"]);
               this.snackbar.open("Session expired", "OK", { duration: 3000 })
+              break;
+
+            case 404:
+              this.router.navigate(["/not-found"], { skipLocationChange: true })
               break;
 
             default:
