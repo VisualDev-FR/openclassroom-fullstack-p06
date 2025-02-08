@@ -18,7 +18,7 @@ export class AuthService {
     private httpClient: HttpClient,
     handler: HttpBackend,
   ) {
-    // prevent requests to be intercepted by jwtInterceptor
+    // this http client will not be intercepted by jwtInterceptor
     this.httpClientPublic = new HttpClient(handler);
   }
 
