@@ -14,8 +14,6 @@ export class SessionService {
     localStorage.setItem("username", sessionInformation.username)
     localStorage.setItem("email", sessionInformation.email)
     this.isLogged = true;
-
-    console.log(sessionInformation.expiration);
   }
 
   public logOut(): void {

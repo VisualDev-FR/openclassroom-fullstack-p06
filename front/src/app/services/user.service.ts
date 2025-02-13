@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
 import { Observable } from 'rxjs';
-import { UserUpdateRequest } from '../interfaces/userUpdateRequest.interface';
-import { SessionInformation } from '../interfaces/sessionInformation.interface';
 
 @Injectable({
   providedIn: 'root'
