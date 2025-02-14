@@ -3,12 +3,11 @@ package com.openclassrooms.mddapi.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.stereotype.Component;
 
 import com.openclassrooms.mddapi.dto.CommentDto;
 import com.openclassrooms.mddapi.model.Comment;
 
-@Component
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR) // pour ignorer un champ: @Mapping(target = "post", ignore = true)
 public interface CommentMapper extends EntityMapper<CommentDto, Comment> {
 
