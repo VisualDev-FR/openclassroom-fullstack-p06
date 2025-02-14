@@ -16,6 +16,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MddButtonComponent } from '../../components/mdd-button/mdd-button.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { LayoutService } from '../../services/layout.service';
+import { passwordValidator } from '../../validators/password.validator';
 
 @Component({
   selector: 'app-register',
@@ -42,7 +43,7 @@ export class RegisterComponent {
 
   readonly username = new FormControl("", [Validators.required])
   readonly email = new FormControl("", [Validators.required, Validators.email])
-  readonly password = new FormControl("", [Validators.required])
+  readonly password = new FormControl("", [passwordValidator(true)])
 
   constructor(
     private formBuilder: FormBuilder,

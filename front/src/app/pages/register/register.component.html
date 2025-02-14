@@ -45,6 +45,10 @@
       Le mot de passe est requis.
     </mat-error>
 
+    <mat-error *ngIf="authForm.controls['password'].hasError('password')" >
+      {{ authForm.controls["password"].getError("password") }}
+    </mat-error>
+
   </mat-form-field>
 
   <mdd-button caption="S'inscrire" type="submit" [disabled]="authForm.invalid" (click)="onSubmit()">
